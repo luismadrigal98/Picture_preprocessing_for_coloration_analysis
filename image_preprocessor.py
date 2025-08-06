@@ -16,6 +16,7 @@ This entry point wil integrate the three main steps used in this study to analys
 
 import argparse
 import os
+from pathlib import Path
 
 # Configuring logging
 import logging
@@ -37,22 +38,22 @@ def main():
     # Global arguments
     parser.add_argument('--debug', '-d', action='store_true', help="Run in debug mode (default: False)")
 
+    # Create subparsers
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
     # Subparser for batch normalization of names
-
-    parser_batch_normalization = parser.add_subparsers(title = "normalize_names", dest="command", description="Normalize image filenames to a consistent format.")
-
+    parser_batch_normalization = subparsers.add_parser("normalize_names", help="Normalize image filenames to a consistent format.")
     parser_batch_normalization.add_argument("zip_directory", help="Path to the directory containing zip files")
     parser_batch_normalization.add_argument("output_directory", help="Path to the output directory for processed images")
 
     # Subparser for auto-rotation of images
-    parser_auto_rotation = parser.add_subparsers(title = "auto_rotate", dest="command", description="Automatically rotate images to align the color checker in the left bottom corner.")
-
+    parser_auto_rotation = subparsers.add_parser("auto_rotate", help="Automatically rotate images to align the color checker in the left bottom corner.")
     parser_auto_rotation.add_argument("input_directory_for_rotation", help="Path to the input directory containing images")
     parser_auto_rotation.add_argument("output_directory_for_rotation", help="Path to the output directory for rotated images")
     parser_auto_rotation.add_argument("--check_sample", action='store_true', help="Check sample images for rulers presence before processing")
 
     # Subparser for simple flower crop
-    parser_simple_crop = parser.add_subparsers(title = "simple_flower_crop", dest="command", description="Crop flower images and replace non-flower pixels with a specified background color.")
+    parser_simple_crop = subparsers.add_parser("simple_flower_crop", help="Crop flower images and replace non-flower pixels with a specified background color.")
     parser_simple_crop.add_argument('input_dir_crop', help='Input directory with images')
     parser_simple_crop.add_argument('output_dir_crop', help='Output directory')
     parser_simple_crop.add_argument('--background', nargs=3, type=int, default=[0, 0, 0],
