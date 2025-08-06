@@ -6,7 +6,7 @@ import glob
 import sys
 import traceback
 
-def extract_and_process_batches(zip_directory, output_directory):
+def extract_and_process_batches(zip_directory, output_directory, prefix = None):
     """
     Extract zip files, consolidate JPG images, and create master metadata file.
     
@@ -87,6 +87,8 @@ def extract_and_process_batches(zip_directory, output_directory):
                         # Create new filename with batch info to avoid collisions: P{plant_id}_{photo_num}_{batch}.jpg
                         batch_name = batch_dir.name.replace("Batch_", "B")  # Shorter batch identifier
                         new_filename = f"P{plant_id}_{photo_num}_{batch_name}.jpg"
+                        if prefix:
+                            new_filename = f"{prefix}_{new_filename}"
                         destination = images_dir / new_filename
                         
                         # Check for duplicates

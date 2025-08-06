@@ -45,6 +45,7 @@ def main():
     parser_batch_normalization = subparsers.add_parser("normalize_names", help="Normalize image filenames to a consistent format.")
     parser_batch_normalization.add_argument("zip_directory", help="Path to the directory containing zip files")
     parser_batch_normalization.add_argument("output_directory", help="Path to the output directory for processed images")
+    parser_batch_normalization.add_argument("--prefix", help="Additional prefix for filenames (default: None)", default=None)
 
     # Subparser for auto-rotation of images
     parser_auto_rotation = subparsers.add_parser("auto_rotate", help="Automatically rotate images to align the color checker in the left bottom corner.")
@@ -84,6 +85,7 @@ def main():
         # Get command-specific arguments
         zip_directory = args.zip_directory
         output_directory = args.output_directory
+        prefix = args.prefix
         
         # Check if the output directory exists, if not, create it
         if not os.path.exists(output_directory):
@@ -91,7 +93,7 @@ def main():
             logger.info(f"Created output directory: {output_directory}")
         
         logger.info("Normalizing names...")
-        success = extract_and_process_batches(zip_directory, output_directory)
+        success = extract_and_process_batches(zip_directory, output_directory, prefix=prefix)
 
         if success:
             logger.info("✅ Script completed successfully!")
