@@ -575,26 +575,3 @@ def test_sample_images(input_dir, num_samples=5):
         angle = rotation_angles.get(position, 0)
         print(f"  Would rotate {angle}° to move checker to bottom-right")
         print("-" * 50)
-
-if __name__ == "__main__":
-    # Set your paths
-    input_directory = "/mnt/1692B2EF92B2D28B/Ongoing_projects/Inv_6_11_interaction/R_directory/Images_ready/images"
-    output_directory = "/mnt/1692B2EF92B2D28B/Ongoing_projects/Inv_6_11_interaction/R_directory/Images_ready/images_oriented"
-
-    print("=== Image Auto-Rotation Script ===")
-    print("Target: Color checker in bottom-right position")
-    print(f"Input: {input_directory}")
-    print(f"Output: {output_directory}")
-    
-    # Check for rulers first
-    check_rulers_presence(input_directory)
-    
-    # Ask user about debug mode
-    debug_choice = input("\nRun in debug mode? (y/n - recommended for first run): ").lower()
-    debug_mode = debug_choice == 'y'
-    
-    # Preprocess images
-    preprocess_images(input_directory, output_directory, check_sample=True, debug_mode=debug_mode)
-    
-    # Optionally, test color checker detection on sample images
-    # test_sample_images(input_directory, num_samples=5)
