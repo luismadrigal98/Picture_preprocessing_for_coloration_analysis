@@ -20,7 +20,8 @@ from pathlib import Path
 
 # Configuring logging
 import logging
-logger = logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 # Add src directory to the path to import modules
 import sys
