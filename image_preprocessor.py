@@ -68,26 +68,22 @@ def main():
     ## Get the arguments from the command line
     args = parser.parse_args()
 
+    # Check if no command was provided
+    if args.command is None:
+        parser.print_help()
+        return
+
     debug = args.debug
-
-    zip_directory = args.zip_directory
-    output_directory = args.output_directory
-
-    input_directory_rotation = args.input_directory_for_rotation
-    output_directory_rotation = args.output_directory_for_rotation
-    check_rulers_presence = args.check_sample
-
-    input_directory_crop = args.input_dir_crop
-    output_directory_crop = args.output_dir_crop
-    background_color = args.background
-    target_size = args.size
-    preserve_aspect = not args.no_preserve_aspect
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 
     ## COMMAND 1: Batch normalization of names
 
     if args.command == "normalize_names":
+        
+        # Get command-specific arguments
+        zip_directory = args.zip_directory
+        output_directory = args.output_directory
         
         # Check if the output directory exists, if not, create it
         if not os.path.exists(output_directory):
@@ -110,6 +106,11 @@ def main():
     ## COMMAND 2: Auto-rotation of images
 
     elif args.command == "auto_rotate":
+        
+        # Get command-specific arguments
+        input_directory_rotation = args.input_directory_for_rotation
+        output_directory_rotation = args.output_directory_for_rotation
+        check_sample = args.check_sample
 
         if not os.path.exists(output_directory_rotation):
             os.makedirs(output_directory_rotation)
@@ -124,12 +125,19 @@ def main():
         check_rulers_presence(input_directory_rotation)
 
         # Preprocess images
-        preprocess_images(input_directory_rotation, output_directory_rotation, check_sample=check_rulers_presence, debug_mode=debug)
+        preprocess_images(input_directory_rotation, output_directory_rotation, check_sample=check_sample, debug_mode=debug)
         logger.info("Rotation completed.")
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
     ## COMMAND 3: Simple flower crop
     elif args.command == "simple_flower_crop":
+
+        # Get command-specific arguments
+        input_directory_crop = args.input_dir_crop
+        output_directory_crop = args.output_dir_crop
+        background_color = args.background
+        target_size = args.size
+        preserve_aspect = not args.no_preserve_aspect
 
         input_path = Path(input_directory_crop)
         output_path = Path(output_directory_crop)
