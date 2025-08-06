@@ -257,19 +257,3 @@ def preview_processing(zip_directory):
     print(f"Total estimated plants: {total_plants}")
     print(f"Total estimated images: {total_images}")
     print(f"Expected output files: {total_images} image files + 3 metadata files")
-
-# Example usage
-if __name__ == "__main__":
-    # Set your paths here
-    zip_directory = "/mnt/1692B2EF92B2D28B/Ongoing_projects/Inv_6_11_interaction/R_directory/Coloration"  # Directory containing Batch_1.zip, Batch_2.zip, etc.
-    output_directory = "/mnt/1692B2EF92B2D28B/Ongoing_projects/Inv_6_11_interaction/R_directory/Images_ready" # Directory to save consolidated images and metadata
-    
-    # Run the consolidation
-    success = extract_and_process_batches(zip_directory, output_directory)
-    
-    if success:
-        print("\n✅ Script completed successfully!")
-        sys.exit(0)
-    else:
-        print("\n❌ Script failed. Please check the errors above.")
-        sys.exit(1)
